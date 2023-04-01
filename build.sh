@@ -120,7 +120,7 @@ echo "
 4. 🌊 **KERNELSU 版本**: $KERNELSU_VERSION
 5. 🌊 **CLANG 版本**: $CLANG_VERSION
 6. 🌊 **LLD 版本**: $LLD_VERSION
-7. 🌊 **文件名**: $ZIP_NAME.zip
+7. 🌊 **文件名**: $ZIP_NAME
 8. 🌊 **文件MD5**: $(md5sum $ZIP_NAME | awk '{print $1}')
 " > RELEASE.md
 echo "KernelSU $KERNELSU_VERSION $(TZ=Asia/Shanghai date +"%Y-%m-%d-%H")" > RELEASETITLE.txt
