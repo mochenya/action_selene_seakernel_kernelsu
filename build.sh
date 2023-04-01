@@ -63,7 +63,7 @@ for patch_file in $WORKDIR/patchs/*.patch
 	patch -p1 < "$patch_file"
 done
 }
-#apply_patchs
+apply_patchs
 
 sed -i "/CONFIG_LOCALVERSION=\"/s/.$/-KSU-$KERNELSU_VERSION\"/" $DEVICE_DEFCONFIG_FILE
 
