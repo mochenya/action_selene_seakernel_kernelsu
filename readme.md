@@ -1,6 +1,6 @@
 ## SeaKernel(selene) with KernelSU
 1. 使用**Github Action**定时在每天**上海时间00:00:00**编译[Sea Kernel](https://github.com/Kentanglu/Sea_Kernel-Selene),并集成[KernelSU](https://github.com/tiann/KernelSU)。
-2. 您可以在[Releases](https://github.com/mochenya/Action_Selene_Sea_KernelSU/releases)页面获取最新编译文件
+2. 您可以在[Releases](https://github.com/mochenya/action_selene_seakernel_kernelsu/releases)页面获取最新编译文件
 3. 使用 **TWRP / OrangeFox**刷入
 
 ### ⚠️ 警告
