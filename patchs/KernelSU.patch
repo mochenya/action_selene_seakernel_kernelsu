@@ -1,0 +1,32 @@
+diff --git a/arch/arm64/configs/selene_defconfig b/arch/arm64/configs/selene_defconfig
+index aa82e1737..e670f5d22 100644
+--- a/arch/arm64/configs/selene_defconfig
++++ b/arch/arm64/configs/selene_defconfig
+@@ -242,7 +242,8 @@ CONFIG_SLUB_CPU_PARTIAL=y
+ CONFIG_SYSTEM_DATA_VERIFICATION=y
+ CONFIG_PROFILING=y
+ CONFIG_TRACEPOINTS=y
+-# CONFIG_KPROBES is not set
++CONFIG_KPROBES=y
++CONFIG_KPROBE_EVENTS=y
+ # CONFIG_JUMP_LABEL is not set
+ CONFIG_UPROBES=y
+ # CONFIG_HAVE_64BIT_ALIGNED_ACCESS is not set
+diff --git a/drivers/input/input.c b/drivers/input/input.c
+index f9f3d6261..41493ec79 100644
+--- a/drivers/input/input.c
++++ b/drivers/input/input.c
+@@ -377,10 +377,13 @@ static int input_get_disposition(struct input_dev *dev,
+ 	return disposition;
+ }
+ 
++extern int ksu_handle_input_handle_event(unsigned int *type, unsigned int *code, int *value);
++
+ static void input_handle_event(struct input_dev *dev,
+ 			       unsigned int type, unsigned int code, int value)
+ {
+ 	int disposition = input_get_disposition(dev, type, code, &value);
++	ksu_handle_input_handle_event(&type, &code, &value);
+ 
+ 	if (disposition != INPUT_IGNORE_EVENT && type != EV_SYN)
+ 		add_input_randomness(type, code, value);
