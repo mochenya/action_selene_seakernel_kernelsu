@@ -5,7 +5,7 @@
 
 WORKDIR="$(pwd)"
 
-ZYCLANG_DLINK="https://github.com/ZyCromerZ/Clang/releases/download/17.0.0-20230428-release/Clang-17.0.0-20230428.tar.gz"
+ZYCLANG_DLINK="https://github.com/ZyCromerZ/Clang/releases/download/17.0.0-20230429-release/Clang-17.0.0-20230429.tar.gz"
 ZYCLANG_DIR="$WORKDIR/ZyClang/bin"
 
 KERENEL_GIT="https://github.com/Kentanglu/Sea_Kernel-Selene.git"
@@ -33,6 +33,7 @@ msg() {
 
 cd $WORKDIR
 
+# Download ZyClang
 msg " • 🌸 Work on $WORKDIR 🌸"
 msg " • 🌸 Cloning Toolchain 🌸 "
 mkdir -p ZyClang
@@ -105,12 +106,12 @@ cd $WORKDIR/Anykernel3
 cp $IMAGE .
 cp $DTB $WORKDIR/Anykernel3/dtb
 cp $DTBO .
-echo "• With KernelSU $KERNELSU_VERSION !!!" >> $WORKDIR/Anykernel3/banner
+echo "• Within KernelSU $KERNELSU_VERSION !!!" >> $WORKDIR/Anykernel3/banner
 
 # PACK FILE
 time=$(TZ='Asia/Shanghai' date +"%Y-%m-%d %H:%M:%S")
 shanghai_time=$(TZ='Asia/Shanghai' date +%Y%m%d%H)
-ZIP_NAME="KernelSU-$KERNELSU_VERSION-R-OSS-selene-$KERNEL_VERSION-SeaWe-$shanghai_time-GithubCI.zip"
+ZIP_NAME="KernelSU-$KERNELSU_VERSION-ROSS-selene-$KERNEL_VERSION-SeaWe-$shanghai_time-GithubCI.zip"
 
 find ./ * -exec touch -m -d "$time" {} \;
 zip -r9 $ZIP_NAME *
