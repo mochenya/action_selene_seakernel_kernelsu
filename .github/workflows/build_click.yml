@@ -14,7 +14,7 @@ jobs:
 
       - name: 🌊 Get variable configuration...
         run: |
-          echo "BUILD_TIME=$(TZ=Asia/Shanghai date +%s)" >> $GITHUB_ENV
+          echo "BUILD_TIME=$(TZ=Asia/Shanghai date +%s | md5sum | awk '{print substr($1,1,10)}')" >> $GITHUB_ENV
 
       - name: 🌊 Configuration Environment‌‌...
         run: |
@@ -36,4 +36,4 @@ jobs:
           name: ${{ env.RELEASE_NAME }}
           tag: ${{ env.BUILD_TIME }}
           bodyFile: "${{ github.workspace }}/out/RELEASE.md"
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN_MoChenYa }}
