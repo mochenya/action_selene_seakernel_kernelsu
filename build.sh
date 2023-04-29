@@ -5,11 +5,11 @@
 
 WORKDIR="$(pwd)"
 
-ZYCLANG_DLINK="https://github.com/ZyCromerZ/Clang/releases/download/17.0.0-20230401-release/Clang-17.0.0-20230401.tar.gz"
+ZYCLANG_DLINK="https://github.com/ZyCromerZ/Clang/releases/download/17.0.0-20230428-release/Clang-17.0.0-20230428.tar.gz"
 ZYCLANG_DIR="$WORKDIR/ZyClang/bin"
 
 KERENEL_GIT="https://github.com/Kentanglu/Sea_Kernel-Selene.git"
-KERNEL_BRANCHE="twelve-release"
+KERNEL_BRANCHE="twelve-test"
 KERNEL_DIR="$WORKDIR/SeaKernel"
 
 ANYKERNEL3_GIT="https://github.com/Kentanglu/AnyKernel3.git"
@@ -49,7 +49,7 @@ git clone --depth=1 $KERENEL_GIT -b $KERNEL_BRANCHE $KERNEL_DIR
 cd $KERNEL_DIR
 
 msg " • 🌸 Patching KernelSU 🌸 "
-curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -
+curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
 KSU_GIT_VERSION=$(cd KernelSU && git rev-list --count HEAD)
 KERNELSU_VERSION=$(($KSU_GIT_VERSION + 10000 + 200))
 msg " • 🌸 KernelSU version: $KERNELSU_VERSION 🌸 "
