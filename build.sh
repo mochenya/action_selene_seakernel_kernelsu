@@ -108,16 +108,17 @@ cp $DTBO .
 echo "• With KernelSU $KERNELSU_VERSION !!!" >> $WORKDIR/Anykernel3/banner
 
 # PACK FILE
-shanghai_time=$(TZ='Asia/Shanghai' date +%Y%m%d%H%M.%S)
-ZIP_NAME="KernelSU-$KERNELSU_VERSION.R-OSS.selene.$KERNEL_VERSION.SeaWe.$shanghai_time.GithubCI.zip"
+time=$(TZ='Asia/Shanghai' date +"%Y-%m-%d %H:%M:%S")
+shanghai_time=$(TZ='Asia/Shanghai' date +%Y%m%d%H)
+ZIP_NAME="KernelSU-$KERNELSU_VERSION-R-OSS-selene-$KERNEL_VERSION-SeaWe-$shanghai_time-GithubCI.zip"
 
-find ./ * -exec touch -m -d $shanghai_time {} \;
+find ./ * -exec touch -m -d "$time" {} \;
 zip -r9 $ZIP_NAME *
 mkdir -p $WORKDIR/out && cp *.zip $WORKDIR/out
 cd $WORKDIR/out
 echo "
 ### SEA KERNEL WITH KERNELSU
-1. 🌊 **时间** : $(TZ=Asia/Shanghai date) # ShangHai TIME
+1. 🌊 **时间** : $(TZ='Asia/Shanghai' date +"%Y-%m-%d %H:%M:%S") # ShangHai TIME
 2. 🌊 **设备代号** : $DEVICES_CODE
 3. 🌊 **LINUX 版本** : $KERNEL_VERSION
 4. 🌊 **KERNELSU 版本**: $KERNELSU_VERSION
@@ -126,7 +127,7 @@ echo "
 7. 🌊 **文件名**: $ZIP_NAME
 8. 🌊 **文件MD5**: $(md5sum $ZIP_NAME | awk '{print $1}')
 " > RELEASE.md
-echo "KernelSU $KERNELSU_VERSION $(TZ=Asia/Shanghai date +"%Y-%m-%d-%H")" > RELEASETITLE.txt
+echo "$(TZ='Asia/Shanghai' date +"%Y-%m-%d %H:%M:%S") KernelSU $KERNELSU_VERSION" > RELEASETITLE.txt
 cat RELEASE.md
 cat RELEASETITLE.txt
 msg "• 🌸 Done! 🌸 "
