@@ -41,8 +41,8 @@ tar -C ZyClang/ -zxvf ZyClang.tar.gz
 rm -rf ZyClang.tar.gz
 
 # CLANG LLVM VERSIONS
-CLANG_VERSION="$("$ZYCLANG_DIR"/clang --version | head -n 1)"
-LLD_VERSION="$("$ZYCLANG_DIR"/ld.lld --version | head -n 1)"
+CLANG_VERSION="$($ZYCLANG_DIR/clang --version | head -n 1)"
+LLD_VERSION="$($ZYCLANG_DIR/ld.lld --version | head -n 1)"
 
 msg " • 🌸 Cloning Kernel Source 🌸 "
 git clone --depth=1 $KERENEL_GIT -b $KERNEL_BRANCHE $KERNEL_DIR
@@ -55,7 +55,7 @@ KERNELSU_VERSION=$(($KSU_GIT_VERSION + 10000 + 200))
 msg " • 🌸 KernelSU version: $KERNELSU_VERSION 🌸 "
 
 # PATCH KERNELSU
-msg " • || Patching KernelSU || "
+msg " • 🌸 Applying patches || "
 
 apply_patchs () {
 for patch_file in $WORKDIR/patchs/*.patch
@@ -108,13 +108,16 @@ cp $DTBO .
 echo "• With KernelSU $KERNELSU_VERSION !!!" >> $WORKDIR/Anykernel3/banner
 
 # PACK FILE
-ZIP_NAME="KernelSU-$KERNELSU_VERSION.R-OSS.selene.$KERNEL_VERSION.Sea.$(TZ=Asia/Shanghai date +"%Y-%m-%d-%H").GithubCI.zip"
+shanghai_time=$(TZ='Asia/Shanghai' date +%Y%m%d%H%M.%S)
+ZIP_NAME="KernelSU-$KERNELSU_VERSION.R-OSS.selene.$KERNEL_VERSION.SeaWe.$shanghai_time.GithubCI.zip"
+
+find ./ * -exec touch -m -d $shanghai_time {} \;
 zip -r9 $ZIP_NAME *
 mkdir -p $WORKDIR/out && cp *.zip $WORKDIR/out
 cd $WORKDIR/out
 echo "
 ### SEA KERNEL WITH KERNELSU
-1. 🌊 **时间** : $(TZ=Asia/Shanghai date) # SHANGHAI TIME
+1. 🌊 **时间** : $(TZ=Asia/Shanghai date) # ShangHai TIME
 2. 🌊 **设备代号** : $DEVICES_CODE
 3. 🌊 **LINUX 版本** : $KERNEL_VERSION
 4. 🌊 **KERNELSU 版本**: $KERNELSU_VERSION
