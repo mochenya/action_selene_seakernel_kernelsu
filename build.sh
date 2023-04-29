@@ -13,7 +13,7 @@ KERNEL_BRANCHE="twelve-test"
 KERNEL_DIR="$WORKDIR/SeaKernel"
 
 ANYKERNEL3_GIT="https://github.com/Kentanglu/AnyKernel3.git"
-ANYKERNEL3_BRANCHE="selene"
+ANYKERNEL3_BRANCHE="selene-old"
 
 DEVICES_CODE="selene"
 DEVICE_DEFCONFIG="selene_defconfig"
