@@ -36,4 +36,4 @@ jobs:
           name: ${{ env.RELEASE_NAME }}
           tag: ${{ env.BUILD_TIME }}
           bodyFile: "${{ github.workspace }}/out/RELEASE.md"
-          token: ${{ secrets.GITHUB_TOKEN_MoChenYa }}
+          token: ${{ secrets.TOKEN_MOCHENYA }}
