@@ -1,5 +1,6 @@
-#!/bin/sh
+#!/usr/bin/env sh
 #
+# GNU General Public License v3.0
 # Copyright (C) 2023 MoChenYa mochenya20070702@gmail.com
 #
 
@@ -10,7 +11,7 @@ ZYCLANG_DLINK="https://github.com/ZyCromerZ/Clang/releases/download/17.0.0-20230
 ZYCLANG_DIR="$WORKDIR/ZyClang/bin"
 
 # Kernel Source
-KERENEL_GIT="https://github.com/Kentanglu/Sea_Kernel-Selene.git"
+KERNEL_GIT="https://github.com/Kentanglu/Sea_Kernel-Selene.git"
 KERNEL_BRANCHE="twelve-test"
 KERNEL_DIR="$WORKDIR/SeaKernel"
 
@@ -55,7 +56,7 @@ CLANG_VERSION="$($ZYCLANG_DIR/clang --version | head -n 1)"
 LLD_VERSION="$($ZYCLANG_DIR/ld.lld --version | head -n 1)"
 
 msg " • 🌸 Cloning Kernel Source 🌸 "
-git clone --depth=1 $KERENEL_GIT -b $KERNEL_BRANCHE $KERNEL_DIR
+git clone --depth=1 $KERNEL_GIT -b $KERNEL_BRANCHE $KERNEL_DIR
 cd $KERNEL_DIR
 
 msg " • 🌸 Patching KernelSU 🌸 "
@@ -124,7 +125,6 @@ ZIP_NAME="KernelSU-$KERNELSU_VERSION-ROSS-selene-$KERNEL_VERSION-SeaWe-$shanghai
 find ./ * -exec touch -m -d "$time" {} \;
 zip -r9 $ZIP_NAME.zip *
 mkdir -p $WORKDIR/out && cp *.zip $WORKDIR/out && cp $DTBO $WORKDIR/out
-cd $WORKDIR/out
 
 # Packed Image
 # Setup magiskboot
@@ -145,6 +145,7 @@ cp $DTB dtb
 $MAGISKBOOT repack -n boot.img $ZIP_NAME.img
 cp $ZIP_NAME.img $WORKDIR/out
 
+cd $WORKDIR/out
 echo "
 ### SEA KERNEL WITH KERNELSU
 1. 🌊 **时间** : $(TZ='Asia/Shanghai' date +"%Y-%m-%d %H:%M:%S") # ShangHai TIME
