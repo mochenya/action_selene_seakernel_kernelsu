@@ -1,0 +1,41 @@
+name: CI Build - Cron
+
+on:
+  schedule:
+    - cron: '0 17 * * *' # 上海时间凌晨1点触发
+    - cron: '0 4 * * *'  # 上海时间中午12点触发
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: 🌊 Get the source code of this repositorie...
+        uses: actions/checkout@v3
+
+      - name: 🌊 Get variable configuration...
+        run: |
+          echo "BUILD_TIME=$(TZ=Asia/Shanghai date +%s | md5sum | awk '{print substr($1,1,10)}')" >> $GITHUB_ENV
+
+      - name: 🌊 Configuration Environment‌‌...
+        run: |
+          cd $GITHUB_WORKSPACE
+          sudo bash env.sh
+
+      - name: 🌊 Start building...
+        run: |
+          cd $GITHUB_WORKSPACE
+          sudo bash build.sh
+          sudo chmod -R 0777 ./*
+          echo "RELEASE_NAME=$(cat "$GITHUB_WORKSPACE/out/RELEASETITLE.txt")" >> $GITHUB_ENV
+          echo "${{ env.RELEASE_NAME }}"
+          
+      - name: 🌊 Upload to Release‌‌...
+        uses: ncipollo/release-action@main
+        with:
+          artifacts: "${{ github.workspace }}/out/*"
+          name: ${{ env.RELEASE_NAME }}
+          tag: ${{ env.BUILD_TIME }}
+          bodyFile: "${{ github.workspace }}/out/RELEASE.md"
+          token: ${{ secrets.TOKEN_MOCHENYA }}
