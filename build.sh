@@ -5,16 +5,25 @@
 
 WORKDIR="$(pwd)"
 
+# ZyClang
 ZYCLANG_DLINK="https://github.com/ZyCromerZ/Clang/releases/download/17.0.0-20230429-release/Clang-17.0.0-20230429.tar.gz"
 ZYCLANG_DIR="$WORKDIR/ZyClang/bin"
 
+# Kernel Source
 KERENEL_GIT="https://github.com/Kentanglu/Sea_Kernel-Selene.git"
 KERNEL_BRANCHE="twelve-test"
 KERNEL_DIR="$WORKDIR/SeaKernel"
 
+# Anykernel3
 ANYKERNEL3_GIT="https://github.com/Kentanglu/AnyKernel3.git"
 ANYKERNEL3_BRANCHE="selene-old"
 
+# Magiskboot
+MAGISKBOOT_DLINK="https://github.com/xiaoxindada/magiskboot_ndk_on_linux/releases/download/Magiskboot-26101-37/magiskboot.7z"
+MAGISKBOOT="$WORKDIR/magiskboot/magiskboot"
+ORIGIN_BOOTIMG_DLINK="https://github.com/mochenya/action_selene_seakernel_kernelsu/releases/download/originboot/boot.img"
+
+# Build
 DEVICES_CODE="selene"
 DEVICE_DEFCONFIG="selene_defconfig"
 DEVICE_DEFCONFIG_FILE="$KERNEL_DIR/arch/arm64/configs/$DEVICE_DEFCONFIG"
@@ -111,12 +120,31 @@ echo "• Within KernelSU $KERNELSU_VERSION !!!" >> $WORKDIR/Anykernel3/banner
 # PACK FILE
 time=$(TZ='Asia/Shanghai' date +"%Y-%m-%d %H:%M:%S")
 shanghai_time=$(TZ='Asia/Shanghai' date +%Y%m%d%H)
-ZIP_NAME="KernelSU-$KERNELSU_VERSION-ROSS-selene-$KERNEL_VERSION-SeaWe-$shanghai_time-GithubCI.zip"
-
+ZIP_NAME="KernelSU-$KERNELSU_VERSION-ROSS-selene-$KERNEL_VERSION-SeaWe-$shanghai_time-GithubCI"
 find ./ * -exec touch -m -d "$time" {} \;
-zip -r9 $ZIP_NAME *
-mkdir -p $WORKDIR/out && cp *.zip $WORKDIR/out
+zip -r9 $ZIP_NAME.zip *
+mkdir -p $WORKDIR/out && cp *.zip $WORKDIR/out && cp $DTBO $WORKDIR/out
 cd $WORKDIR/out
+
+# Packed Image
+# Setup magiskboot
+cd $WORKDIR && mkdir magiskboot
+aria2c -s16 -x16 -k1M $MAGISKBOOT_DLINK -o magiskboot.7z
+7z e magiskboot.7z out/x86_64/magiskboot -omagiskboot/
+rm -rf magiskboot.7z
+
+# Download original boot.img
+aria2c -s16 -x16 -k1M $ORIGIN_BOOTIMG_DLINK -o magiskboot/boot.img
+cd $WORKDIR/magiskboot
+
+# Packing
+$MAGISKBOOT unpack -h boot.img
+cp $IMAGE
+$MAGISKBOOT split Image.gz-dtb
+cp $DTB dtb
+$MAGISKBOOT repack -n boot.img $ZIP_NAME.img
+cp $ZIP_NAME.img $WORKDIR/out
+
 echo "
 ### SEA KERNEL WITH KERNELSU
 1. 🌊 **时间** : $(TZ='Asia/Shanghai' date +"%Y-%m-%d %H:%M:%S") # ShangHai TIME
@@ -125,8 +153,10 @@ echo "
 4. 🌊 **KERNELSU 版本**: $KERNELSU_VERSION
 5. 🌊 **CLANG 版本**: $CLANG_VERSION
 6. 🌊 **LLD 版本**: $LLD_VERSION
-7. 🌊 **文件名**: $ZIP_NAME
-8. 🌊 **文件MD5**: $(md5sum $ZIP_NAME | awk '{print $1}')
+7. 🌊 **Anykernel3**: $ZIP_NAME.zip
+8. 🌊 **Anykernel3 MD5**: $(md5sum $ZIP_NAME.zip | awk '{print $1}')
+9. 🌊 **Image镜像**: $ZIP_NAME.img
+10.🌊 **Image镜像 MD5** $(md5sum $ZIP_NAME.img | awk '{print $1}')
 " > RELEASE.md
 echo "$(TZ='Asia/Shanghai' date +"%Y-%m-%d %H:%M:%S") KernelSU $KERNELSU_VERSION" > RELEASETITLE.txt
 cat RELEASE.md
