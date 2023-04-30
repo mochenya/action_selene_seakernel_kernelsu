@@ -1,5 +1,5 @@
 ## SeaKernel(selene) with KernelSU
-1. 使用**Github Action**定时在每天**上海时间00:00:00**编译[Sea Kernel](https://github.com/Kentanglu/Sea_Kernel-Selene),并集成[KernelSU](https://github.com/tiann/KernelSU)。
+1. 使用**Github Action**定时在每天**上海时间00:00:00 12:00:00**编译[Sea Kernel](https://github.com/Kentanglu/Sea_Kernel-Selene),并集成[KernelSU](https://github.com/tiann/KernelSU)。
 2. 您可以在[Releases](https://github.com/mochenya/action_selene_seakernel_kernelsu/releases)页面获取最新编译文件
 3. 使用 **TWRP / OrangeFox**刷入
 
@@ -8,10 +8,8 @@
 2. 启用 KernelSU 内置的**安全模式**
 3. CI自动构建，同步上游内核提交**不保证**稳定性
 
-### ✨ 截图
-![OrangeFox Flashing](https://raw.githubusercontent.com/mochenya/action_selene_seakernel_kernelsu/main/pictures/Flash.png)
-![KernelSU Manager](https://raw.githubusercontent.com/mochenya/action_selene_seakernel_kernelsu/main/pictures/KernelSU%20Manager.png)
+### ✨ 截图![OrangeFox Flashing](https://raw.githubusercontent.com/mochenya/action_selene_seakernel_kernelsu/main/pictures/Flash.png)![KernelSU Manager](https://raw.githubusercontent.com/mochenya/action_selene_seakernel_kernelsu/main/pictures/KernelSU%20Manager.png)
 
 ### 🌸 感谢
-**Sea Kernel**: https://github.com/Kentanglu/Sea_Kernel-Selene
-**KernelSU**: https://github.com/tiann/KernelSU
+1. **Sea Kernel**: https://github.com/Kentanglu/Sea_Kernel-Selene
+2. **KernelSU**: https://github.com/tiann/KernelSU
