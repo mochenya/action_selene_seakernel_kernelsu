@@ -142,8 +142,8 @@ $MAGISKBOOT unpack -h boot.img
 cp $IMAGE ./Image.gz-dtb
 $MAGISKBOOT split Image.gz-dtb
 cp $DTB ./dtb
-$MAGISKBOOT repack -n boot.img $ZIP_NAME.img
-cp $ZIP_NAME.img $WORKDIR/out
+$MAGISKBOOT repack boot.img
+cp new-boot.img $WORKDIR/out/$ZIP_NAME.img
 
 cd $WORKDIR/out
 echo "
