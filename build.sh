@@ -143,7 +143,11 @@ cp $IMAGE ./Image.gz-dtb
 $MAGISKBOOT split Image.gz-dtb
 cp $DTB ./dtb
 $MAGISKBOOT repack boot.img
-cp new-boot.img $WORKDIR/out/$ZIP_NAME.img
+mv new-boot.img $WORKDIR/out/$ZIP_NAME.img
+# SElinux Permissive
+sed -i '/cmdline=/ s/$/ androidboot.selinux=permissive/' header
+$MAGISKBOOT repack boot.img
+mv new-boot.img $WORKDIR/out/$ZIP_NAME-Permissive.img
 
 cd $WORKDIR/out
 echo "
@@ -158,6 +162,8 @@ echo "
 8. 🌊 **Anykernel3 MD5**: $(md5sum $ZIP_NAME.zip | awk '{print $1}')
 9. 🌊 **Image镜像**: $ZIP_NAME.img
 10.🌊 **Image镜像 MD5** $(md5sum $ZIP_NAME.img | awk '{print $1}')
+11.🌊 **Image镜像(Permissive): $ZIP_NAME-Permissive.img
+12.🌊 **Image镜像(Permissive) MD5: $(md5sum $ZIP_NAME-Permissive.img | awk '{print $1}')
 " > RELEASE.md
 echo "$(TZ='Asia/Shanghai' date +"%Y-%m-%d %H:%M:%S") KernelSU $KERNELSU_VERSION" > RELEASETITLE.txt
 cat RELEASE.md
