@@ -163,8 +163,8 @@ echo "
 8. 🌊 **Anykernel3 MD5**: $(md5sum $ZIP_NAME.zip | awk '{print $1}')
 9. 🌊 **Image镜像**: $ZIP_NAME.img
 10.🌊 **Image镜像 MD5** $(md5sum $ZIP_NAME.img | awk '{print $1}')
-11.🌊 **Image镜像(Permissive): $ZIP_NAME-Permissive.img
-12.🌊 **Image镜像(Permissive) MD5: $(md5sum $ZIP_NAME-Permissive.img | awk '{print $1}')
+11.🌊 **Image镜像(Permissive)**: $ZIP_NAME-Permissive.img
+12.🌊 **Image镜像(Permissive) MD5**: $(md5sum $ZIP_NAME-Permissive.img | awk '{print $1}')
 " > RELEASE.md
 echo "$(TZ='Asia/Shanghai' date +"%Y-%m-%d %H:%M:%S") KernelSU $KERNELSU_VERSION" > RELEASETITLE.txt
 cat RELEASE.md
