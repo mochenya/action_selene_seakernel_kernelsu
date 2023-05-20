@@ -7,7 +7,7 @@
 WORKDIR="$(pwd)"
 
 # ZyClang
-ZYCLANG_DLINK="https://github.com/ZyCromerZ/Clang/releases/download/17.0.0-20230510-release/Clang-17.0.0-20230510.tar.gz"
+ZYCLANG_DLINK="https://github.com/ZyCromerZ/Clang/releases/download/17.0.0-20230520-release/Clang-17.0.0-20230520.tar.gz"
 ZYCLANG_DIR="$WORKDIR/ZyClang/bin"
 
 # Kernel Source
@@ -162,9 +162,9 @@ echo "
 7. 🌊 **Anykernel3**: $ZIP_NAME.zip
 8. 🌊 **Anykernel3 MD5**: $(md5sum $ZIP_NAME.zip | awk '{print $1}')
 9. 🌊 **Image镜像**: $ZIP_NAME.img
-10.🌊 **Image镜像 MD5** $(md5sum $ZIP_NAME.img | awk '{print $1}')
-11.🌊 **Image镜像(Permissive)**: $ZIP_NAME-Permissive.img
-12.🌊 **Image镜像(Permissive) MD5**: $(md5sum $ZIP_NAME-Permissive.img | awk '{print $1}')
+10. 🌊 **Image镜像 MD5** $(md5sum $ZIP_NAME.img | awk '{print $1}')
+11. 🌊 **Image镜像(Permissive)**: $ZIP_NAME-Permissive.img
+12. 🌊 **Image镜像(Permissive) MD5**: $(md5sum $ZIP_NAME-Permissive.img | awk '{print $1}')
 " > RELEASE.md
 echo "$(TZ='Asia/Shanghai' date +"%Y-%m-%d %H:%M:%S") KernelSU $KERNELSU_VERSION" > RELEASETITLE.txt
 cat RELEASE.md

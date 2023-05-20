@@ -39,3 +39,8 @@ jobs:
           tag: ${{ env.BUILD_TIME }}
           bodyFile: "${{ github.workspace }}/out/RELEASE.md"
           token: ${{ secrets.TOKEN_MOCHENYA }}
+
+      - name: Set Latest Release
+        run: |
+          latest_release_id=$(curl --header "Authorization: Bearer ${{ secrets.TOKEN_MOCHENYA }}" "https://api.github.com/repos/mochenya/action_selene_seakernel_kernelsu/releases/latest" | jq -r '.id')
+          curl --request PATCH --header "Authorization: Bearer ${{ secrets.TOKEN_MOCHENYA }}" --header "Content-Type: application/json" --data '{"name": "Latest Release"}' "https://api.github.com/repos/mochenya/action_selene_seakernel_kernelsu/releases/$latest_release_id"
