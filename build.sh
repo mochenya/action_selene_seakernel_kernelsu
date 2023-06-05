@@ -7,11 +7,11 @@
 WORKDIR="$(pwd)"
 
 # ZyClang
-ZYCLANG_DLINK="https://github.com/ZyCromerZ/Clang/releases/download/17.0.0-20230526-release/Clang-17.0.0-20230526.tar.gz"
+ZYCLANG_DLINK="https://github.com/ZyCromerZ/Clang/releases/download/17.0.0-20230605-release/Clang-17.0.0-20230605.tar.gz"
 ZYCLANG_DIR="$WORKDIR/ZyClang/bin"
 
 # Kernel Source
-KERNEL_GIT="https://github.com/Kentanglu/Sea_Kernel-Selene.git"
+KERNEL_GIT="https://github.com/mochenya/Sea_Kernel-Selene.git"
 KERNEL_BRANCHE="twelve-test"
 KERNEL_DIR="$WORKDIR/SeaKernel"
 
