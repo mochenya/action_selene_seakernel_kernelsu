@@ -100,8 +100,7 @@ HOSTAR=llvm-ar \
 HOSTLD=ld.lld \
 HOSTCC=clang \
 HOSTCXX=clang++ \
-LLVM=1 \
-LLVM_IAS=1"
+LLVM=1"
 
 # LINUX KERNEL VERSION
 rm -rf out
@@ -109,6 +108,12 @@ make O=out $args $DEVICE_DEFCONFIG
 KERNEL_VERSION=$(make O=out $args kernelversion | grep "4.14")
 msg " • 🌸 LINUX KERNEL VERSION : $KERNEL_VERSION 🌸 "
 make O=out $args -j"$(nproc --all)"
+
+msg " • 🌸 Checking builds 🌸 "
+if [ ! -e $IMAGE ]; then
+    echo -e " • 🌸 \033[31mBuild Failed!\033[0m"
+    exit 1
+fi
 
 msg " • 🌸 Packing Kernel 🌸 "
 cd $WORKDIR
