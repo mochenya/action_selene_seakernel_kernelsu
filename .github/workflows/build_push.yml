@@ -1,0 +1,37 @@
+name: CI Build - Push
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: 🌊 Get the source code of this repositorie...
+        uses: actions/checkout@v3
+
+      - name: 🌊 Get variable configuration...
+        run: |
+          echo "KERNELSU_VERSION=$(cat "$GITHUB_WORKSPACE/out/KernelSU_version.txt")" >> $GITHUB_ENV
+
+      - name: 🌊 Configuration Environment‌‌...
+        run: |
+          cd $GITHUB_WORKSPACE
+          sudo bash env.sh
+
+      - name: 🌊 Start building...
+        run: |
+          cd $GITHUB_WORKSPACE
+          sudo bash build.sh
+          sudo chmod -R 0777 ./*
+          
+      - name: 🌊 Upload to Release...
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          body_path: "${{ github.workspace }}/out/RELEASE.md"
+          files: "${{ github.workspace }}/out/*"
+          name: KernelSU-${{ env.KERNELSU_VERSION }}-${{ github.run_id }}
+          tag_name: ${{ github.run_id }}
+          token: ${{ secrets.TOKEN_MOCHENYA }}
