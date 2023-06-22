@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 #
 # GNU General Public License v3.0
 # Copyright (C) 2023 MoChenYa mochenya20070702@gmail.com
@@ -81,6 +81,8 @@ sed -i "/CONFIG_LOCALVERSION=\"/s/.$/-KSU-$KERNELSU_VERSION\"/" $DEVICE_DEFCONFI
 # BUILD KERNEL
 msg " • 🌸 Started Compilation 🌸 "
 
+mkdir -p $WORKDIR/out
+
 args="PATH=$ZYCLANG_DIR:$PATH \
 ARCH=arm64 \
 SUBARCH=arm64 \
@@ -107,7 +109,7 @@ rm -rf out
 make O=out $args $DEVICE_DEFCONFIG
 KERNEL_VERSION=$(make O=out $args kernelversion | grep "4.14")
 msg " • 🌸 LINUX KERNEL VERSION : $KERNEL_VERSION 🌸 "
-make O=out $args -j"$(nproc --all)"
+make O=out $args -j"$(nproc --all)" | tee "$WORKDIR/out/Build.log"
 
 msg " • 🌸 Checking builds 🌸 "
 if [ ! -e $IMAGE ]; then
@@ -130,7 +132,7 @@ shanghai_time=$(TZ='Asia/Shanghai' date +%Y%m%d%H)
 ZIP_NAME="KernelSU-$KERNELSU_VERSION-ROSS-selene-$KERNEL_VERSION-SeaWe-$shanghai_time-GithubCI"
 find ./ * -exec touch -m -d "$time" {} \;
 zip -r9 $ZIP_NAME.zip *
-mkdir -p $WORKDIR/out && cp *.zip $WORKDIR/out && cp $DTBO $WORKDIR/out
+cp *.zip $WORKDIR/out && cp $DTBO $WORKDIR/out
 
 # Packed Image
 # Setup magiskboot
@@ -158,20 +160,22 @@ mv new-boot.img $WORKDIR/out/$ZIP_NAME-Permissive.img
 cd $WORKDIR/out
 echo "
 ### SEA KERNEL WITH KERNELSU
-- 🌊 **时间** : $(TZ='Asia/Shanghai' date +"%Y-%m-%d %H:%M:%S") # ShangHai TIME
-- 🌊 **设备代号** : $DEVICES_CODE
-- 🌊 **LINUX 版本** : $KERNEL_VERSION
-- 🌊 **KERNELSU 版本**: $KERNELSU_VERSION
-- 🌊 **CLANG 版本**: $CLANG_VERSION
-- 🌊 **LLD 版本**: $LLD_VERSION
+- 🌊 **Build Time** : $(TZ='Asia/Shanghai' date +"%Y-%m-%d %H:%M:%S") # ShangHai TIME
+- 🌊 **Device Code** : $DEVICES_CODE
+- 🌊 **Linux Version** : $KERNEL_VERSION
+- 🌊 **KernelSU Version**: $KERNELSU_VERSION
+- 🌊 **Clang Version**: $CLANG_VERSION
+- 🌊 **LLD Version**: $LLD_VERSION
 - 🌊 **Anykernel3**: $ZIP_NAME.zip
 - 🌊 **Anykernel3 MD5**: $(md5sum $ZIP_NAME.zip | awk '{print $1}')
-- 🌊 **Image镜像**: $ZIP_NAME.img
-- 🌊 **Image镜像 MD5** $(md5sum $ZIP_NAME.img | awk '{print $1}')
-- 🌊 **Image镜像(Permissive)**: $ZIP_NAME-Permissive.img
-- 🌊 **Image镜像(Permissive) MD5**: $(md5sum $ZIP_NAME-Permissive.img | awk '{print $1}')
+- 🌊 **Image**: $ZIP_NAME.img
+- 🌊 **Image MD5** $(md5sum $ZIP_NAME.img | awk '{print $1}')
+- 🌊 **Image(Permissive)**: $ZIP_NAME-Permissive.img
+- 🌊 **Image(Permissive) MD5**: $(md5sum $ZIP_NAME-Permissive.img | awk '{print $1}')
 " > RELEASE.md
-echo "$KERNELSU_VERSION" > KernelSU_version.txt
+echo "$KERNELSU_VERSION" > KSU_VERSION.txt
+echo "$KERNEL_VERSION" > KERNEL_VERSION.txt
 cat RELEASE.md
-cat KernelSU_version.txt
+cat KSU_VERSION.txt
+cat KERNEL_VERSION.txt
 msg "• 🌸 Done! 🌸 "

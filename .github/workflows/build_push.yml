@@ -9,11 +9,7 @@ jobs:
       contents: write
     steps:
       - name: 🌊 Get the source code of this repositorie...
-        uses: actions/checkout@v3
-
-      - name: 🌊 Get variable configuration...
-        run: |
-          echo "KERNELSU_VERSION=$(cat "$GITHUB_WORKSPACE/out/KernelSU_version.txt")" >> $GITHUB_ENV
+        uses: actions/checkout@main
 
       - name: 🌊 Configuration Environment‌‌...
         run: |
@@ -26,11 +22,18 @@ jobs:
           sudo bash build.sh
           sudo chmod -R 0777 ./*
           
+      - name: 🌊 Get variable configuration...
+        run: |
+          echo "KERNELSU_VERSION=$(cat "$GITHUB_WORKSPACE/out/KSU_VERSION.txt")" >> $GITHUB_ENV
+          echo "KERNEL_VERSION=$(cat "$GITHUB_WORKSPACE/out/KERNEL_VERSION.txt")" >> $GITHUB_ENV
+          echo "${{ env.KERNELSU_VERSION }}"
+          echo "${{ env.KERNEL_VERSION }}"
+
       - name: 🌊 Upload to Release‌‌...
         uses: ncipollo/release-action@main
         with:
           artifacts: "${{ github.workspace }}/out/*"
-          name: KernelSU-${{ env.KERNELSU_VERSION }}-${{ github.run_id }}
+          name: KernelSU-${{ env.KERNELSU_VERSION }}-${{ env.KERNEL_VERSION }}-${{ github.run_id }}
           tag: ${{ github.run_id }}
           bodyFile: "${{ github.workspace }}/out/RELEASE.md"
           token: ${{ secrets.TOKEN_MOCHENYA }}
