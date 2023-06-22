@@ -14,7 +14,7 @@ jobs:
 
       - name: 🌊 Get variable configuration...
         run: |
-          echo "BUILD_TIME=$(TZ=Asia/Shanghai date +%s | md5sum | awk '{print substr($1,1,10)}')" >> $GITHUB_ENV
+          echo "KERNELSU_VERSION=$(cat "$GITHUB_WORKSPACE/out/KernelSU_version.txt")" >> $GITHUB_ENV
 
       - name: 🌊 Configuration Environment‌‌...
         run: |
@@ -26,19 +26,13 @@ jobs:
           cd $GITHUB_WORKSPACE
           sudo bash build.sh
           sudo chmod -R 0777 ./*
-          echo "RELEASE_NAME=$(cat "$GITHUB_WORKSPACE/out/RELEASETITLE.txt")" >> $GITHUB_ENV
-          echo "${{ env.RELEASE_NAME }}"
           
-      - name: 🌊 Upload to Release‌‌...
-        uses: ncipollo/release-action@main
+      - name: 🌊 Upload to Release...
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
         with:
-          artifacts: "${{ github.workspace }}/out/*"
-          name: ${{ env.RELEASE_NAME }}
-          tag: ${{ env.BUILD_TIME }}
-          bodyFile: "${{ github.workspace }}/out/RELEASE.md"
+          body_path: "${{ github.workspace }}/out/RELEASE.md"
+          files: "${{ github.workspace }}/out/*"
+          name: KernelSU-${{ env.KERNELSU_VERSION }}-${{ github.run_id }}
+          tag_name: ${{ github.run_id }}
           token: ${{ secrets.TOKEN_MOCHENYA }}
-          
-      - name: Set Latest Release
-        run: |
-          latest_release_id=$(curl --header "Authorization: Bearer ${{ secrets.TOKEN_MOCHENYA }}" "https://api.github.com/repos/mochenya/action_selene_seakernel_kernelsu/releases/latest" | jq -r '.id')
-          curl --request PATCH --header "Authorization: Bearer ${{ secrets.TOKEN_MOCHENYA }}" --header "Content-Type: application/json" --data '{"name": "Latest Release"}' "https://api.github.com/repos/mochenya/action_selene_seakernel_kernelsu/releases/$latest_release_id"
