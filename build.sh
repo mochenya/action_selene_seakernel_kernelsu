@@ -158,20 +158,20 @@ mv new-boot.img $WORKDIR/out/$ZIP_NAME-Permissive.img
 cd $WORKDIR/out
 echo "
 ### SEA KERNEL WITH KERNELSU
-1. 🌊 **时间** : $(TZ='Asia/Shanghai' date +"%Y-%m-%d %H:%M:%S") # ShangHai TIME
-2. 🌊 **设备代号** : $DEVICES_CODE
-3. 🌊 **LINUX 版本** : $KERNEL_VERSION
-4. 🌊 **KERNELSU 版本**: $KERNELSU_VERSION
-5. 🌊 **CLANG 版本**: $CLANG_VERSION
-6. 🌊 **LLD 版本**: $LLD_VERSION
-7. 🌊 **Anykernel3**: $ZIP_NAME.zip
-8. 🌊 **Anykernel3 MD5**: $(md5sum $ZIP_NAME.zip | awk '{print $1}')
-9. 🌊 **Image镜像**: $ZIP_NAME.img
-10. 🌊 **Image镜像 MD5** $(md5sum $ZIP_NAME.img | awk '{print $1}')
-11. 🌊 **Image镜像(Permissive)**: $ZIP_NAME-Permissive.img
-12. 🌊 **Image镜像(Permissive) MD5**: $(md5sum $ZIP_NAME-Permissive.img | awk '{print $1}')
+- 🌊 **时间** : $(TZ='Asia/Shanghai' date +"%Y-%m-%d %H:%M:%S") # ShangHai TIME
+- 🌊 **设备代号** : $DEVICES_CODE
+- 🌊 **LINUX 版本** : $KERNEL_VERSION
+- 🌊 **KERNELSU 版本**: $KERNELSU_VERSION
+- 🌊 **CLANG 版本**: $CLANG_VERSION
+- 🌊 **LLD 版本**: $LLD_VERSION
+- 🌊 **Anykernel3**: $ZIP_NAME.zip
+- 🌊 **Anykernel3 MD5**: $(md5sum $ZIP_NAME.zip | awk '{print $1}')
+- 🌊 **Image镜像**: $ZIP_NAME.img
+- 🌊 **Image镜像 MD5** $(md5sum $ZIP_NAME.img | awk '{print $1}')
+- 🌊 **Image镜像(Permissive)**: $ZIP_NAME-Permissive.img
+- 🌊 **Image镜像(Permissive) MD5**: $(md5sum $ZIP_NAME-Permissive.img | awk '{print $1}')
 " > RELEASE.md
-echo "$(TZ='Asia/Shanghai' date +"%Y-%m-%d %H:%M:%S") KernelSU $KERNELSU_VERSION" > RELEASETITLE.txt
+echo "$KERNELSU_VERSION" > KernelSU_version.txt
 cat RELEASE.md
-cat RELEASETITLE.txt
+cat KernelSU_version.txt
 msg "• 🌸 Done! 🌸 "
