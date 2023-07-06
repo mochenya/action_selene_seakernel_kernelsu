@@ -7,7 +7,7 @@
 WORKDIR="$(pwd)"
 
 # ZyClang
-ZYCLANG_DLINK="https://github.com/ZyCromerZ/Clang/releases/download/17.0.0-20230702-release/Clang-17.0.0-20230702.tar.gz"
+ZYCLANG_DLINK="https://github.com/ZyCromerZ/Clang/releases/download/17.0.0-20230706-release/Clang-17.0.0-20230706.tar.gz"
 ZYCLANG_DIR="$WORKDIR/ZyClang/bin"
 
 # Kernel Source
@@ -129,7 +129,7 @@ echo "• Within KernelSU $KERNELSU_VERSION !!!" >> $WORKDIR/Anykernel3/banner
 # PACK FILE
 time=$(TZ='Asia/Shanghai' date +"%Y-%m-%d %H:%M:%S")
 shanghai_time=$(TZ='Asia/Shanghai' date +%Y%m%d%H)
-ZIP_NAME="KernelSU-$KERNELSU_VERSION-ROSS-selene-$KERNEL_VERSION-SeaWe-$shanghai_time-GithubCI"
+ZIP_NAME="KernelSU-$KERNELSU_VERSION-ROSS-selene-$KERNEL_VERSION-Sea-$shanghai_time-GithubCI"
 find ./ * -exec touch -m -d "$time" {} \;
 zip -r9 $ZIP_NAME.zip *
 cp *.zip $WORKDIR/out && cp $DTBO $WORKDIR/out
