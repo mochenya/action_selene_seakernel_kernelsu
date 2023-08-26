@@ -60,7 +60,7 @@ git clone --depth=1 $KERNEL_GIT -b $KERNEL_BRANCHE $KERNEL_DIR
 cd $KERNEL_DIR
 
 msg " • 🌸 Patching KernelSU 🌸 "
-curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
+curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -
 KSU_GIT_VERSION=$(cd KernelSU && git rev-list --count HEAD)
 KERNELSU_VERSION=$(($KSU_GIT_VERSION + 10000 + 200))
 msg " • 🌸 KernelSU version: $KERNELSU_VERSION 🌸 "
