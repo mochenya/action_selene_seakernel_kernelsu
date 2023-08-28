@@ -16,6 +16,7 @@ KERNEL_BRANCHE="twelve-test"
 KERNEL_DIR="$WORKDIR/SeaKernel"
 SEA_KERNEL_VERSION="Naya"
 SEA_KERNEL_CODENAME="7/Naya🩸✨"
+SEA_KERNEL_CODENAME_ESCAPE="7\/Naya🩸✨"
 
 # Anykernel3
 ANYKERNEL3_GIT="https://github.com/Kentanglu/AnyKernel3.git"
@@ -79,7 +80,8 @@ done
 }
 apply_patchs
 
-sed -i "/CONFIG_LOCALVERSION=\"/s/.$/$SEA_KERNEL_CODENAME-KSU-$KERNELSU_VERSION\"/" $DEVICE_DEFCONFIG_FILE
+sed -i "/CONFIG_LOCALVERSION=\"/s/.$/$SEA_KERNEL_CODENAME_ESCAPE-KSU-$KERNELSU_VERSION\"/" $DEVICE_DEFCONFIG_FILE
+msg " • 🌸 $(grep 'CONFIG_LOCALVERSION=' $DEVICE_DEFCONFIG_FILE) 🌸 "
 
 # BUILD KERNEL
 msg " • 🌸 Started Compilation 🌸 "
