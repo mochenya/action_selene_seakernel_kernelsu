@@ -14,7 +14,8 @@ ZYCLANG_DIR="$WORKDIR/ZyClang/bin"
 KERNEL_GIT="https://github.com/mochenya/Sea_Kernel-Selene.git"
 KERNEL_BRANCHE="twelve-test"
 KERNEL_DIR="$WORKDIR/SeaKernel"
-KERNEL_CODENAME="7/Naya🩸✨"
+SEA_KERNEL_VERSION="Naya"
+SEA_KERNEL_CODENAME="7/Naya🩸✨"
 
 # Anykernel3
 ANYKERNEL3_GIT="https://github.com/Kentanglu/AnyKernel3.git"
@@ -78,7 +79,7 @@ done
 }
 apply_patchs
 
-sed -i "/CONFIG_LOCALVERSION=\"/s/.$/$KERNEL_CODENAME-KSU-$KERNELSU_VERSION\"/" $DEVICE_DEFCONFIG_FILE
+sed -i "/CONFIG_LOCALVERSION=\"/s/.$/$SEA_KERNEL_CODENAME-KSU-$KERNELSU_VERSION\"/" $DEVICE_DEFCONFIG_FILE
 
 # BUILD KERNEL
 msg " • 🌸 Started Compilation 🌸 "
@@ -131,7 +132,7 @@ echo "• Within KernelSU $KERNELSU_VERSION !!!" >> $WORKDIR/Anykernel3/banner
 # PACK FILE
 time=$(TZ='Asia/Shanghai' date +"%Y-%m-%d %H:%M:%S")
 shanghai_time=$(TZ='Asia/Shanghai' date +%Y%m%d%H)
-ZIP_NAME="KernelSU-$KERNELSU_VERSION-ROSS-R¹.$KERNEL_CODENAME-selene-$KERNEL_VERSION-Sea-$shanghai_time-GithubCI"
+ZIP_NAME="KernelSU-$KERNELSU_VERSION-ROSS-selene-$KERNEL_VERSION-Sea-$SEA_KERNEL_VERSION-$shanghai_time-GithubCI"
 find ./ * -exec touch -m -d "$time" {} \;
 zip -r9 $ZIP_NAME.zip *
 cp *.zip $WORKDIR/out && cp $DTBO $WORKDIR/out
@@ -164,7 +165,7 @@ echo "
 ### SEA KERNEL WITH KERNELSU
 - 🌊 **Build Time** : $(TZ='Asia/Shanghai' date +"%Y-%m-%d %H:%M:%S") # ShangHai TIME
 - 🌊 **Device Code** : $DEVICES_CODE
-- 🌊 **Sea Kernel Codename** : R¹.$KERNEL_CODENAME
+- 🌊 **Sea Kernel Codename** : R¹.$SEA_KERNEL_CODENAME
 - 🌊 **Linux Version** : $KERNEL_VERSION
 - 🌊 **KernelSU Version**: $KERNELSU_VERSION
 - 🌊 **Clang Version**: $CLANG_VERSION
