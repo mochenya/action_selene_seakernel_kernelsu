@@ -11,12 +11,12 @@ ZYCLANG_DLINK="https://github.com/ZyCromerZ/Clang/releases/download/18.0.0-20230
 ZYCLANG_DIR="$WORKDIR/ZyClang/bin"
 
 # Kernel Source
-KERNEL_GIT="https://github.com/mochenya/Sea_Kernel-Selene.git"
+KERNEL_GIT="https://github.com/Kentanglu/Sea_Kernel-Selene.git"
 KERNEL_BRANCHE="twelve-test"
 KERNEL_DIR="$WORKDIR/SeaKernel"
 SEA_KERNEL_VERSION="Naya"
-SEA_KERNEL_CODENAME="7/Naya🩸✨"
-SEA_KERNEL_CODENAME_ESCAPE="7\/Naya🩸✨"
+SEA_KERNEL_CODENAME="7.5/Naya🍃✨"
+SEA_KERNEL_CODENAME_ESCAPE="7.5\/Naya🍃✨"
 
 # Anykernel3
 ANYKERNEL3_GIT="https://github.com/Kentanglu/AnyKernel3.git"
