@@ -12,7 +12,7 @@ ZYCLANG_DIR="$WORKDIR/ZyClang/bin"
 
 # Kernel Source
 KERNEL_GIT="https://github.com/Kentanglu/Sea_Kernel-Selene.git"
-KERNEL_BRANCHE="twelve-test"
+KERNEL_BRANCHE="sea-release"
 KERNEL_DIR="$WORKDIR/SeaKernel"
 SEA_KERNEL_VERSION="Naya"
 SEA_KERNEL_CODENAME="7.5/Naya🍃✨"
