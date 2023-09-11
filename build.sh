@@ -62,6 +62,7 @@ LLD_VERSION="$($ZYCLANG_DIR/ld.lld --version | head -n 1)"
 msg " • 🌸 Cloning Kernel Source 🌸 "
 git clone --depth=1 $KERNEL_GIT -b $KERNEL_BRANCHE $KERNEL_DIR
 cd $KERNEL_DIR
+KERNEL_HEAD_HASH=$(git log --pretty=format:'%H' -1)
 
 msg " • 🌸 Patching KernelSU 🌸 "
 curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -
@@ -181,7 +182,9 @@ echo "
 " > RELEASE.md
 echo "$KERNELSU_VERSION" > KSU_VERSION.txt
 echo "$KERNEL_VERSION" > KERNEL_VERSION.txt
+echo "$KERNEL_HEAD_HASH" > KERNEL_HEAD_HASH.txt
 cat RELEASE.md
 cat KSU_VERSION.txt
 cat KERNEL_VERSION.txt
+cat KERNEL_HEAD_HASH.txt
 msg "• 🌸 Done! 🌸 "

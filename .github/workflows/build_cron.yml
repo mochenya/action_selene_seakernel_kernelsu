@@ -14,6 +14,11 @@ jobs:
       - name: 🌊 Get the source code of this repositorie...
         uses: actions/checkout@main
 
+      - name: 🌊 Check for redundancy...
+        run: |
+          cd $GITHUB_WORKSPACE
+          bash -x check.sh
+
       - name: 🌊 Configuration Environment‌‌...
         run: |
           cd $GITHUB_WORKSPACE
