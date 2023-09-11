@@ -6,6 +6,9 @@ LAST_KSU_VERSION=$(curl -L $(cat chktmp | grep KSU_VERSION))
 rm chktmp
 
 git clone https://github.com/tiann/KernelSU ksu_tmp
+# use this one if main branch should be checked
+#KSU_GIT_VERSION=$(cd ksu_tmp && git rev-list --count HEAD)
+# use this one if latest tag (stable) should be checked
 KSU_GIT_VERSION=$(cd ksu_tmp && git checkout "$(git describe --abbrev=0 --tags)" && git rev-list --count HEAD)
 KSU_VERSION=$(($KSU_GIT_VERSION + 10000 + 200))
 rm -rf ksu_tmp
