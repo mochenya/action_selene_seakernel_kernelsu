@@ -12,7 +12,7 @@ rm -rf ksu_tmp
 
 REMOTE_HEAD_HASH=$(curl "https://api.github.com/repos/Kentanglu/Sea_Kernel-Selene/commits?per_page=1" | jq -r '.[].sha')
 
-if [[ $LAST_KSU_VERSION == $KSU_VERSION ]] || [[ $LAST_KERNEL_HEAD_HASH == $REMOTE_HEAD_HASH ]] ; then
+if [[ $LAST_KSU_VERSION == $KSU_VERSION ]] && [[ $LAST_KERNEL_HEAD_HASH == $REMOTE_HEAD_HASH ]] ; then
   echo no diff
   exit 1
 fi
