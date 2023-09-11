@@ -44,4 +44,4 @@ jobs:
           name: KernelSU-${{ env.KERNELSU_VERSION }}-${{ env.KERNEL_VERSION }}-${{ github.run_id }}
           tag: ${{ github.run_id }}
           bodyFile: "${{ github.workspace }}/out/RELEASE.md"
-          token: ${{ secrets.TOKEN_MOCHENYA }}
+          token: ${{ secrets.GITHUB_TOKEN }}
