@@ -11,19 +11,19 @@ ZYCLANG_DLINK="https://github.com/ZyCromerZ/Clang/releases/download/18.0.0-20230
 ZYCLANG_DIR="$WORKDIR/ZyClang/bin"
 
 # Kernel Source
-KERNEL_GIT="https://github.com/mochenya/Sea_Kernel-Selene.git"
-KERNEL_BRANCHE="twelve-test"
+KERNEL_GIT="https://github.com/Kentanglu/Sea_Kernel-Selene.git"
+KERNEL_BRANCHE="sea-release"
 KERNEL_DIR="$WORKDIR/SeaKernel"
 SEA_KERNEL_VERSION="Naya"
-SEA_KERNEL_CODENAME="7/Naya🩸✨"
-SEA_KERNEL_CODENAME_ESCAPE="7\/Naya🩸✨"
+SEA_KERNEL_CODENAME="7.5/Naya🍃✨"
+SEA_KERNEL_CODENAME_ESCAPE="7.5\/Naya🍃✨"
 
 # Anykernel3
 ANYKERNEL3_GIT="https://github.com/Kentanglu/AnyKernel3.git"
 ANYKERNEL3_BRANCHE="selene-old"
 
 # Magiskboot
-MAGISKBOOT_DLINK="https://github.com/xiaoxindada/magiskboot_ndk_on_linux/releases/download/Magiskboot-26102-41/magiskboot.7z"
+MAGISKBOOT_DLINK="https://github.com/xiaoxindada/magiskboot_ndk_on_linux/releases/download/Magiskboot-26301-48/magiskboot.7z"
 MAGISKBOOT="$WORKDIR/magiskboot/magiskboot"
 ORIGIN_BOOTIMG_DLINK="https://github.com/mochenya/action_selene_seakernel_kernelsu/releases/download/originboot/boot.img"
 
