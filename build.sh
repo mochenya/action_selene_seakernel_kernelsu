@@ -7,16 +7,16 @@
 WORKDIR="$(pwd)"
 
 # ZyClang
-ZYCLANG_DLINK="https://github.com/ZyCromerZ/Clang/releases/download/18.0.0-20230826-release/Clang-18.0.0-20230826.tar.gz"
+ZYCLANG_DLINK="https://github.com/ZyCromerZ/Clang/releases/download/18.0.0-20231010-release/Clang-18.0.0-20231010.tar.gz"
 ZYCLANG_DIR="$WORKDIR/ZyClang/bin"
 
 # Kernel Source
 KERNEL_GIT="https://github.com/Kentanglu/Sea_Kernel-Selene.git"
 KERNEL_BRANCHE="sea-release"
 KERNEL_DIR="$WORKDIR/SeaKernel"
-SEA_KERNEL_VERSION="Naya"
-SEA_KERNEL_CODENAME="7.5/Naya🍃✨"
-SEA_KERNEL_CODENAME_ESCAPE="7.5\/Naya🍃✨"
+SEA_KERNEL_VERSION="Alina"
+SEA_KERNEL_CODENAME="8.5/Alina🧜✨"
+SEA_KERNEL_CODENAME_ESCAPE="8.5\/Alina🧜✨"
 
 # Anykernel3
 ANYKERNEL3_GIT="https://github.com/Kentanglu/AnyKernel3.git"
