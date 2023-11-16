@@ -7,7 +7,7 @@
 WORKDIR="$(pwd)"
 
 # ZyClang
-ZYCLANG_DLINK="https://github.com/ZyCromerZ/Clang/releases/download/18.0.0-20231103-release/Clang-18.0.0-20231103.tar.gz"
+ZYCLANG_DLINK="https://github.com/ZyCromerZ/Clang/releases/download/18.0.0-20231115-release/Clang-18.0.0-20231115.tar.gz"
 ZYCLANG_DIR="$WORKDIR/ZyClang/bin"
 
 # Kernel Source
@@ -23,7 +23,7 @@ ANYKERNEL3_GIT="https://github.com/Kentanglu/AnyKernel3.git"
 ANYKERNEL3_BRANCHE="selene-old"
 
 # Magiskboot
-MAGISKBOOT_DLINK="https://github.com/xiaoxindada/magiskboot_ndk_on_linux/releases/download/Magiskboot-26301-48/magiskboot.7z"
+MAGISKBOOT_DLINK="https://github.com/xiaoxindada/magiskboot_ndk_on_linux/releases/download/Magiskboot-26401-57/magiskboot.7z"
 MAGISKBOOT="$WORKDIR/magiskboot/magiskboot"
 ORIGIN_BOOTIMG_DLINK="https://github.com/mochenya/action_selene_seakernel_kernelsu/releases/download/originboot/boot.img"
 
