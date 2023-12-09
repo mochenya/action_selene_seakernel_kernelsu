@@ -14,9 +14,9 @@ ZYCLANG_DIR="$WORKDIR/ZyClang/bin"
 KERNEL_GIT="https://github.com/Kentanglu/Sea_Kernel-Selene.git"
 KERNEL_BRANCHE="sea-release"
 KERNEL_DIR="$WORKDIR/SeaKernel"
-SEA_KERNEL_VERSION="Alina"
-SEA_KERNEL_CODENAME="8.5/Alina🧜✨"
-SEA_KERNEL_CODENAME_ESCAPE="8.5\/Alina🧜✨"
+SEA_KERNEL_VERSION="Ayaka"
+SEA_KERNEL_CODENAME="9/Ayaka🐲✨"
+SEA_KERNEL_CODENAME_ESCAPE="9\/Ayaka🐲✨"
 
 # Anykernel3
 ANYKERNEL3_GIT="https://github.com/Kentanglu/AnyKernel3.git"
