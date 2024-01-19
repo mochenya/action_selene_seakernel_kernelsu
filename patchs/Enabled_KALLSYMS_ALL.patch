@@ -1,0 +1,13 @@
+diff --git a/arch/arm64/configs/selene_defconfig b/arch/arm64/configs/selene_defconfig
+index adb28f15a..f0dcc04dd 100644
+--- a/arch/arm64/configs/selene_defconfig
++++ b/arch/arm64/configs/selene_defconfig
+@@ -200,7 +200,7 @@ CONFIG_SYSFS_SYSCALL=y
+ CONFIG_SYSCTL_SYSCALL=y
+ CONFIG_POSIX_TIMERS=y
+ CONFIG_KALLSYMS=y
+-# CONFIG_KALLSYMS_ALL is not set
++CONFIG_KALLSYMS_ALL=y
+ # CONFIG_KALLSYMS_ABSOLUTE_PERCPU is not set
+ # CONFIG_KALLSYMS_BASE_RELATIVE is not set
+ CONFIG_PRINTK=y
