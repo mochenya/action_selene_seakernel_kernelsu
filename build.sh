@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 #
 # GNU General Public License v3.0
-# Copyright (C) 2023 MoChenYa mochenya20070702@gmail.com
+# Copyright (C) 2024 MoChenYa mochenya20070702@gmail.com
 #
 
 WORKDIR="$(pwd)"
 
 # ZyClang
-ZYCLANG_DLINK="https://github.com/ZyCromerZ/Clang/releases/download/18.0.0git-20240119-release/Clang-18.0.0git-20240119.tar.gz"
+ZYCLANG_DLINK="https://github.com/ZyCromerZ/Clang/releases/download/19.0.0git-20240202-release/Clang-19.0.0git-20240202.tar.gz"
 ZYCLANG_DIR="$WORKDIR/ZyClang/bin"
 
 # Kernel Source
@@ -80,6 +80,9 @@ for patch_file in $WORKDIR/patchs/*.patch
 done
 }
 apply_patchs
+
+# ENABLE KernelSU
+echo -e "\n# KernelSU\nCONFIG_KSU=y" >> $DEVICE_DEFCONFIG_FILE
 
 sed -i "/CONFIG_LOCALVERSION=\"/s/.$/$SEA_KERNEL_CODENAME_ESCAPE-KSU-$KERNELSU_VERSION\"/" $DEVICE_DEFCONFIG_FILE
 msg " • 🌸 $(grep 'CONFIG_LOCALVERSION=' $DEVICE_DEFCONFIG_FILE) 🌸 "
