@@ -11,7 +11,7 @@ ZYCLANG_DLINK="https://github.com/ZyCromerZ/Clang/releases/download/19.0.0git-20
 ZYCLANG_DIR="$WORKDIR/ZyClang/bin"
 
 # Kernel Source
-KERNEL_GIT="https://github.com/Kentanglu/Sea_Kernel-Selene.git"
+KERNEL_GIT="https://github.com/mochenya/Sea_Kernel-Selene.git"
 KERNEL_BRANCHE="sea-release"
 KERNEL_DIR="$WORKDIR/SeaKernel"
 SEA_KERNEL_VERSION="Ayaka"
