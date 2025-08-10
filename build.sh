@@ -86,25 +86,25 @@ cd $KERNEL_DIR
 KERNEL_HEAD_HASH=$(git log --pretty=format:'%H' -1)
 
 # 集成 KernelSU
-msg " • 🌸 Patching KernelSU 🌸 "
-curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -
-KSU_GIT_VERSION=$(cd KernelSU && git rev-list --count HEAD)
-KERNELSU_VERSION=$(($KSU_GIT_VERSION + 10000 + 200))
-msg " • 🌸 KernelSU version: $KERNELSU_VERSION 🌸 "
+# msg " • 🌸 Patching KernelSU 🌸 "
+# curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -
+# KSU_GIT_VERSION=$(cd KernelSU && git rev-list --count HEAD)
+# KERNELSU_VERSION=$(($KSU_GIT_VERSION + 10000 + 200))
+# msg " • 🌸 KernelSU version: $KERNELSU_VERSION 🌸 "
 
 # 应用补丁
-msg " • 🌸 Applying patches 🌸 "
+# msg " • 🌸 Applying patches 🌸 "
 
-apply_patchs () {
-for patch_file in $WORKDIR/patchs/*.patch
-	do
-	patch -p1 < "$patch_file"
-done
-}
-apply_patchs
+# apply_patchs () {
+# for patch_file in $WORKDIR/patchs/*.patch
+# 	do
+# 	patch -p1 < "$patch_file"
+# done
+# }
+# apply_patchs
 
-# 启用 KernelSU
-echo -e "\n# KernelSU\nCONFIG_KSU=y" >> $DEVICE_DEFCONFIG_FILE
+# # 启用 KernelSU
+# echo -e "\n# KernelSU\nCONFIG_KSU=y" >> $DEVICE_DEFCONFIG_FILE
 
 # 修改内核版本号
 # sed -i "/CONFIG_LOCALVERSION=\"/s/.$/$SEA_KERNEL_CODENAME_ESCAPE-KSU-$KERNELSU_VERSION"/g" $DEVICE_DEFCONFIG_FILE
