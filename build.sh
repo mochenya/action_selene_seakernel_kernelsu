@@ -4,49 +4,68 @@
 # Copyright (C) 2024 MoChenYa mochenya20070702@gmail.com
 #
 
+# 设置工作目录
 WORKDIR="$(pwd)"
 
-# ZyClang
+# ZyClang 工具链下载链接
 ZYCLANG_DLINK="https://github.com/ZyCromerZ/Clang/releases/download/19.0.0git-20240217-release/Clang-19.0.0git-20240217.tar.gz"
+# ZyClang 工具链路径
 ZYCLANG_DIR="$WORKDIR/ZyClang/bin"
 
-# Kernel Source
-KERNEL_GIT="https://github.com/mochenya/Sea_Kernel-Selene.git"
-KERNEL_BRANCHE="sea-release"
-KERNEL_DIR="$WORKDIR/SeaKernel"
+# 内核源码 Git 仓库地址
+KERNEL_GIT="https://github.com/25ji-Telegram-de/android_kernel_xiaomi_selene.git"
+# 内核源码分支
+KERNEL_BRANCHE="yuki-saisei"
+# 内核源码目录
+KERNEL_DIR="$WORKDIR/Kernel"
+# SeaKernel 版本号
 SEA_KERNEL_VERSION="Ayaka"
+# SeaKernel 代号
 SEA_KERNEL_CODENAME="9/Ayaka🐲✨"
+# SeaKernel 代号（用于 sed）
 SEA_KERNEL_CODENAME_ESCAPE="9\/Ayaka🐲✨"
 
-# Anykernel3
+# Anykernel3 Git 仓库地址
 ANYKERNEL3_GIT="https://github.com/Kentanglu/AnyKernel3.git"
+# Anykernel3 分支
 ANYKERNEL3_BRANCHE="selene-old"
 
-# Magiskboot
+# Magiskboot 下载链接
 MAGISKBOOT_DLINK="https://github.com/xiaoxindada/magiskboot_ndk_on_linux/releases/download/Magiskboot-27001-58/magiskboot.7z"
+# Magiskboot 路径
 MAGISKBOOT="$WORKDIR/magiskboot/magiskboot"
+# 原版 boot.img 下载链接
 ORIGIN_BOOTIMG_DLINK="https://github.com/mochenya/action_selene_seakernel_kernelsu/releases/download/originboot/boot.img"
 
-# Build
+# 编译配置
+# 设备代号
 DEVICES_CODE="selene"
+# 设备 defconfig 文件名
 DEVICE_DEFCONFIG="selene_defconfig"
+# 设备 defconfig 文件路径
 DEVICE_DEFCONFIG_FILE="$KERNEL_DIR/arch/arm64/configs/$DEVICE_DEFCONFIG"
+# 内核镜像路径
 IMAGE="$KERNEL_DIR/out/arch/arm64/boot/Image.gz-dtb"
+# DTB 文件路径
 DTB="$KERNEL_DIR/out/arch/arm64/boot/dts/mediatek/mt6768.dtb"
+# DTBO 镜像路径
 DTBO="$KERNEL_DIR/out/arch/arm64/boot/dtbo.img"
 
+# 设置编译用户信息
 export KBUILD_BUILD_USER=MoChenYa
 export KBUILD_BUILD_HOST=GitHubCI
 
+# 自定义消息输出函数
 msg() {
 	echo
 	echo -e "\e[1;32m$*\e[0m"
 	echo
 }
 
+# 切换到工作目录
 cd $WORKDIR
 
-# Download ZyClang
+# 下载并解压 ZyClang 工具链
 msg " • 🌸 Work on $WORKDIR 🌸"
 msg " • 🌸 Cloning Toolchain 🌸 "
 msg " • 🌸 Donwload $ZYCLANG_DLINK 🌸 "
@@ -55,22 +74,25 @@ aria2c -s16 -x16 -k1M $ZYCLANG_DLINK -o ZyClang.tar.gz
 tar -C ZyClang/ -zxvf ZyClang.tar.gz
 rm -rf ZyClang.tar.gz
 
-# CLANG LLVM VERSIONS
+# 获取 CLANG 和 LLVM 版本信息
 CLANG_VERSION="$($ZYCLANG_DIR/clang --version | head -n 1)"
 LLD_VERSION="$($ZYCLANG_DIR/ld.lld --version | head -n 1)"
 
+# 克隆内核源码
 msg " • 🌸 Cloning Kernel Source 🌸 "
 git clone --depth=1 $KERNEL_GIT -b $KERNEL_BRANCHE $KERNEL_DIR
 cd $KERNEL_DIR
+# 获取最新的 commit hash
 KERNEL_HEAD_HASH=$(git log --pretty=format:'%H' -1)
 
+# 集成 KernelSU
 msg " • 🌸 Patching KernelSU 🌸 "
 curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -
 KSU_GIT_VERSION=$(cd KernelSU && git rev-list --count HEAD)
 KERNELSU_VERSION=$(($KSU_GIT_VERSION + 10000 + 200))
 msg " • 🌸 KernelSU version: $KERNELSU_VERSION 🌸 "
 
-# PATCH KERNELSU
+# 应用补丁
 msg " • 🌸 Applying patches 🌸 "
 
 apply_patchs () {
@@ -81,17 +103,20 @@ done
 }
 apply_patchs
 
-# ENABLE KernelSU
+# 启用 KernelSU
 echo -e "\n# KernelSU\nCONFIG_KSU=y" >> $DEVICE_DEFCONFIG_FILE
 
-sed -i "/CONFIG_LOCALVERSION=\"/s/.$/$SEA_KERNEL_CODENAME_ESCAPE-KSU-$KERNELSU_VERSION\"/" $DEVICE_DEFCONFIG_FILE
-msg " • 🌸 $(grep 'CONFIG_LOCALVERSION=' $DEVICE_DEFCONFIG_FILE) 🌸 "
+# 修改内核版本号
+# sed -i "/CONFIG_LOCALVERSION=\"/s/.$/$SEA_KERNEL_CODENAME_ESCAPE-KSU-$KERNELSU_VERSION"/g" $DEVICE_DEFCONFIG_FILE
+# msg " • 🌸 $(grep 'CONFIG_LOCALVERSION=' $DEVICE_DEFCONFIG_FILE) 🌸 "
 
-# BUILD KERNEL
+# 编译内核
 msg " • 🌸 Started Compilation 🌸 "
 
+# 创建输出目录
 mkdir -p $WORKDIR/out
 
+# 编译参数
 args="PATH=$ZYCLANG_DIR:$PATH \
 ARCH=arm64 \
 SUBARCH=arm64 \
@@ -113,29 +138,35 @@ HOSTCC=clang \
 HOSTCXX=clang++ \
 LLVM=1"
 
-# LINUX KERNEL VERSION
+# 获取 Linux 内核版本
 rm -rf out
 make O=out $args $DEVICE_DEFCONFIG
 KERNEL_VERSION=$(make O=out $args kernelversion | grep "4.14")
 msg " • 🌸 LINUX KERNEL VERSION : $KERNEL_VERSION 🌸 "
+# 开始编译
 make O=out $args -j"$(nproc --all)" | tee "$WORKDIR/out/Build.log"
 
+# 检查编译结果
 msg " • 🌸 Checking builds 🌸 "
 if [ ! -e $IMAGE ]; then
     echo -e " • 🌸 \033[31mBuild Failed!\033[0m"
     exit 1
 fi
 
+# 打包内核
 msg " • 🌸 Packing Kernel 🌸 "
 cd $WORKDIR
+# 克隆 Anykernel3
 git clone --depth=1 $ANYKERNEL3_GIT -b $ANYKERNEL3_BRANCHE $WORKDIR/Anykernel3
 cd $WORKDIR/Anykernel3
+# 复制内核镜像、dtb、dtbo
 cp $IMAGE .
 cp $DTB $WORKDIR/Anykernel3/dtb
 cp $DTBO .
+# 添加 KernelSU 版本信息到 banner
 echo "• Within KernelSU $KERNELSU_VERSION !!!" >> $WORKDIR/Anykernel3/banner
 
-# PACK FILE
+# 打包成 zip
 time=$(TZ='Asia/Shanghai' date +"%Y-%m-%d %H:%M:%S")
 shanghai_time=$(TZ='Asia/Shanghai' date +%Y%m%d%H)
 ZIP_NAME="KernelSU-$KERNELSU_VERSION-ROSS-selene-$KERNEL_VERSION-Sea-$SEA_KERNEL_VERSION-$shanghai_time-GithubCI"
@@ -143,18 +174,18 @@ find ./ * -exec touch -m -d "$time" {} \;
 zip -r9 $ZIP_NAME.zip *
 cp *.zip $WORKDIR/out && cp $DTBO $WORKDIR/out
 
-# Packed Image
-# Setup magiskboot
+# 打包成 boot.img
+# 下载并设置 magiskboot
 cd $WORKDIR && mkdir magiskboot
 aria2c -s16 -x16 -k1M $MAGISKBOOT_DLINK -o magiskboot.7z
 7z e magiskboot.7z out/x86_64/magiskboot -omagiskboot/
 rm -rf magiskboot.7z
 
-# Download original boot.img
+# 下载原版 boot.img
 aria2c -s16 -x16 -k1M $ORIGIN_BOOTIMG_DLINK -o magiskboot/boot.img
 cd $WORKDIR/magiskboot
 
-# Packing
+# 开始打包
 $MAGISKBOOT unpack -h boot.img
 cp $IMAGE ./Image.gz-dtb
 $MAGISKBOOT split Image.gz-dtb
@@ -166,6 +197,7 @@ sed -i '/cmdline=/ s/$/ androidboot.selinux=permissive/' header
 $MAGISKBOOT repack boot.img
 mv new-boot.img $WORKDIR/out/$ZIP_NAME-Permissive.img
 
+# 生成 Release 信息
 cd $WORKDIR/out
 echo "
 ### SEA KERNEL WITH KERNELSU
