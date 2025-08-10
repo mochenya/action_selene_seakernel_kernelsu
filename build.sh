@@ -25,18 +25,6 @@ SEA_KERNEL_CODENAME="9/Ayaka🐲✨"
 # SeaKernel 代号（用于 sed）
 SEA_KERNEL_CODENAME_ESCAPE="9\/Ayaka🐲✨"
 
-# Anykernel3 Git 仓库地址
-ANYKERNEL3_GIT="https://github.com/Kentanglu/AnyKernel3.git"
-# Anykernel3 分支
-ANYKERNEL3_BRANCHE="selene-old"
-
-# Magiskboot 下载链接
-MAGISKBOOT_DLINK="https://github.com/xiaoxindada/magiskboot_ndk_on_linux/releases/download/Magiskboot-27001-58/magiskboot.7z"
-# Magiskboot 路径
-MAGISKBOOT="$WORKDIR/magiskboot/magiskboot"
-# 原版 boot.img 下载链接
-ORIGIN_BOOTIMG_DLINK="https://github.com/mochenya/action_selene_seakernel_kernelsu/releases/download/originboot/boot.img"
-
 # 编译配置
 # 设备代号
 DEVICES_CODE="selene"
@@ -173,29 +161,6 @@ ZIP_NAME="KernelSU-$KERNELSU_VERSION-ROSS-selene-$KERNEL_VERSION-Sea-$SEA_KERNEL
 find ./ * -exec touch -m -d "$time" {} \;
 zip -r9 $ZIP_NAME.zip *
 cp *.zip $WORKDIR/out && cp $DTBO $WORKDIR/out
-
-# 打包成 boot.img
-# 下载并设置 magiskboot
-cd $WORKDIR && mkdir magiskboot
-aria2c -s16 -x16 -k1M $MAGISKBOOT_DLINK -o magiskboot.7z
-7z e magiskboot.7z out/x86_64/magiskboot -omagiskboot/
-rm -rf magiskboot.7z
-
-# 下载原版 boot.img
-aria2c -s16 -x16 -k1M $ORIGIN_BOOTIMG_DLINK -o magiskboot/boot.img
-cd $WORKDIR/magiskboot
-
-# 开始打包
-$MAGISKBOOT unpack -h boot.img
-cp $IMAGE ./Image.gz-dtb
-$MAGISKBOOT split Image.gz-dtb
-cp $DTB ./dtb
-$MAGISKBOOT repack boot.img
-mv new-boot.img $WORKDIR/out/$ZIP_NAME.img
-# SElinux Permissive
-sed -i '/cmdline=/ s/$/ androidboot.selinux=permissive/' header
-$MAGISKBOOT repack boot.img
-mv new-boot.img $WORKDIR/out/$ZIP_NAME-Permissive.img
 
 # 生成 Release 信息
 cd $WORKDIR/out
